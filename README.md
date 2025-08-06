@@ -23,7 +23,11 @@
 **1. 从 Wheel 文件安装:**
 
 ```bash
-pip install /path/to/my_awesome_ratelimiter-0.1.0-py3-none-any.whl
+# TODO uplaod to PyPI
+pip install awesome-ratelimiter
+
+# use this command to workaround
+pip install git+https://github.com/785172550/awesome_ratelimiter.git
 ```
 
 **2. 从源码进行开发/可编辑模式安装:**
