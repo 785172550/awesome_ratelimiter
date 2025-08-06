@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: awesome_ratelimiter
+Version: 0.1.0
+Summary: A flexible token-bucket rate limiter decorator.
+Author-email: Hang Wang <hangw9412@gmail.com>
+Project-URL: Homepage, https://github.com/785172550/ratelimiter_project
+Project-URL: Bug Tracker, https://github.com/785172550/ratelimiter_project/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# awesome_ratelimiter
