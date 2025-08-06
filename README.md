@@ -13,7 +13,6 @@
   * **易于使用**: 通过简单的 `@` 装饰器语法即可为任何函数添加速率限制。
   * **令牌桶算法**: 高效地处理突发流量，同时保证长期的平均速率。
   * **按键区分限制**: 可以根据用户ID、IP地址或任何其他函数参数来施加独立的速率限制。
-  * **线程安全**: 可在多线程应用中安全使用，无需担心竞态条件。
   * **高度可定制**: 轻松设置请求速率和时间周期。
   * **明确的异常处理**: 当请求被限制时，会抛出带有建议重试时间的自定义异常。
 
@@ -37,7 +36,7 @@ pip install -e .
 
 ## 🚀 快速开始
 
-使用 `TokenBucketLimiter` 非常简单。下面是一些常见用例。
+使用 `RateLimiter` 非常简单。下面是一些常见用例。
 
 ### 示例 1: 全局速率限制
 
@@ -45,9 +44,10 @@ pip install -e .
 
 ```python
 import time
-from my_ratelimiter import TokenBucketLimiter, RateLimitException
+from my_ratelimiter import RateLimiter, RateLimitException
 
-@TokenBucketLimiter(max_requests=5, period=10)
+# token_bucket=True 使用 token bucket limiter，否则使用 sliding window
+@RateLimiter(max_requests=5, period=10，token_bucket=True)
 def fetch_global_resource():
     print(f"[{time.strftime('%H:%M:%S')}] 正在获取全局资源... 成功!")
 
