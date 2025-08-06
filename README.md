@@ -1,8 +1,7 @@
 # Awesome Rate Limiter
 
-[](https://www.google.com/search?q=https://pypi.org/project/my-awesome-ratelimiter/)
-[](https://opensource.org/licenses/MIT)
-
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+[PyPI Awesome-ratelimiter](https://pypi.org/project/awesome-ratelimiter/0.1.0/)
 
 一个灵活、线程安全、基于装饰器的 Python 速率限制器，使用令牌桶（Token Bucket）算法实现。
 
@@ -23,8 +22,8 @@
 **1. 从 Wheel 文件安装:**
 
 ```bash
-# TODO uplaod to PyPI
-pip install awesome-ratelimiter
+# PyPI
+pip install awesome-ratelimiter==0.1.0
 
 # use this command to workaround
 pip install git+https://github.com/785172550/awesome_ratelimiter.git
