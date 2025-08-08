@@ -3,7 +3,7 @@ import time
 from collections import deque
 
 
-def RateLimiter(max_requests: int, period: int, get_key_func=None, token_bucket=True):
+def RateLimiter(max_requests: int, period: int, get_key_func=None, token_bucket=True, multi_thread=False):
     """
     Decorator to apply rate limiting to a function.
     Args:
@@ -13,6 +13,9 @@ def RateLimiter(max_requests: int, period: int, get_key_func=None, token_bucket=
         token_bucket (bool): Use token bucket algorithm if True, otherwise use simple sliding window.
     """
     limiters = {}
+    if multi_thread:
+        import threading
+        lock = threading.Lock()
 
     def decorator(func):
 
@@ -30,7 +33,15 @@ def RateLimiter(max_requests: int, period: int, get_key_func=None, token_bucket=
                     limiters[key] = SlidingWindowRateLimiter(max_requests, period)
 
             limiter = limiters[key]
-            if limiter.allow_request():
+            allow = False
+            
+            if multi_thread:
+                with lock:
+                    allow = limiter.allow_request()
+            else:
+                allow = limiter.allow_request()
+           
+            if allow:
                 return func(*args, **kwargs)
             else:
                 raise RateLimitException(
@@ -97,9 +108,14 @@ class TokenBucketRateLimiter:
 
     def allow_request(self) -> bool:
 
+        # fast path: if we have enough tokens, allow the request
+        if self.tokens >= 1:
+            self.tokens -= 1
+            return True
+        
         # Refill tokens based on elapsed time
         self._refill()
-
+        
         if self.tokens >= 1:
             self.tokens -= 1
             return True
